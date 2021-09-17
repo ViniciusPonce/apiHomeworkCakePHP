@@ -15,16 +15,30 @@ class Seller extends AbstractMigration
     public function change()
     {
         $table = $this->table('sellers');
-        $table->addColumn('seller_name', 'string', [
+        $table->addColumn('name', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('seller_email', 'string', [
+        $table->addColumn('email', 'string', [
             'default' => null,
             'limit' => 30,
             'null' => false,
         ]);
+        $table->addTimestamps(null, false);
+        $table->addTimestamps(false);
+        // $table->addColumn('created_at', 'datetime', [
+        //     'default' => null,
+        //     'null' => false,
+        // ]);
+        // $table->addColumn('updated_at', 'datetime', [
+        //     'default' => null,
+        //     'null' => false,
+        // ]);
+        // $table->addColumn('deleted_at', 'datetime', [
+        //     'default' => null,
+        //     'null' => false,
+        // ]);
         $table->create();
     }
 }
