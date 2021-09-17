@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Phinx\Migrations\AbstractMigration;
+use Migrations\AbstractMigration;
 
 class Sales extends AbstractMigration
 {
@@ -15,10 +15,14 @@ class Sales extends AbstractMigration
     public function change()
     {
         $table = $this->table('sales');
-        $table->addForeignKey('seller_id', 'sellers', 'id', [
-            'delete' => 'CASCADE',
-            'update' => 'CASCADE',
-        ]);
+        $table
+            ->addColumn('seller_id', 'integer', [
+                'null' => false,
+            ])
+            ->addForeignKey('seller_id', 'sellers', 'id', [
+                'delete' => 'CASCADE',
+                'update' => 'CASCADE',
+            ]);
         $table->addColumn('value', 'decimal', [
             'default' => null,
             'null' => false
