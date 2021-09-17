@@ -22,6 +22,7 @@
  */
 
 use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\Route\Route;
 use Cake\Routing\RouteBuilder;
 
 /*
@@ -73,6 +74,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->fallbacks();
 });
 
+
 /*
  * If you need a different set of middleware or none at all,
  * open new scope and define routes there.
@@ -89,6 +91,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * ```
  */
 
-//  $routes->scope('/api', function (RouteBuilder $builder) {
-//      $routes->connect('/'['controller' => 'Sellers', 'GET' => 'index'])
-//  })
+
+// $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');
+$routes->post('/api/sellers/create', ['controller' => 'Sellers', 'action' => 'add'], 'sellers:add');
+// $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');
+// $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');

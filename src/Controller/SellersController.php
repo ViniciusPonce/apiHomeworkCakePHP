@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Client\Request;
+
 /**
  * Sellers Controller
  *
+ * @property \App\Model\Table\SellersTable $Sellers
  * @method \App\Model\Entity\Seller[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class SellersController extends AppController
@@ -31,8 +34,9 @@ class SellersController extends AppController
      */
     public function view($id = null)
     {
+        dd('Teste');
         $seller = $this->Sellers->get($id, [
-            'contain' => [],
+            'contain' => ['Sales'],
         ]);
 
         $this->set(compact('seller'));
@@ -45,15 +49,16 @@ class SellersController extends AppController
      */
     public function add()
     {
+        // dd($this->request);
         $seller = $this->Sellers->newEmptyEntity();
         if ($this->request->is('post')) {
             $seller = $this->Sellers->patchEntity($seller, $this->request->getData());
             if ($this->Sellers->save($seller)) {
-                $this->Flash->success(__('The seller has been saved.'));
+                $this->Flash->success(__('Vendedor cadastrado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The seller could not be saved. Please, try again.'));
+            $this->Flash->error(__('Vendedor não cadastrado, Por favor, tente novamente'));
         }
         $this->set(compact('seller'));
     }
@@ -94,9 +99,9 @@ class SellersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $seller = $this->Sellers->get($id);
         if ($this->Sellers->delete($seller)) {
-            $this->Flash->success(__('The seller has been deleted.'));
+            $this->Flash->success(__('O vendedor foi deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('The seller could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O vendedor não foi deletado, Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
