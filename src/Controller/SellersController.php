@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Http\Client\Request;
 
 /**
  * Sellers Controller
@@ -34,7 +33,6 @@ class SellersController extends AppController
      */
     public function view($id = null)
     {
-        dd('Teste');
         $seller = $this->Sellers->get($id, [
             'contain' => ['Sales'],
         ]);
