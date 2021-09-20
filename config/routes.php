@@ -75,15 +75,15 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->fallbacks();
 });
 
-$routes->scope('/api', function (RouteBuilder $routes) {
-    $routes->setExtensions(['json']);
-    $routes->applyMiddleware('csrf');
+// $routes->scope('/api', function (RouteBuilder $routes) {
+//     $routes->setExtensions(['json']);
+//     // $routes->applyMiddleware('csrf');
 
-    $routes->connect('/sellers', ['controller' => 'Sellers', 'action' => 'index']);
-    $routes->connect('/sellers/add', ['controller' => 'Sellers', 'action' => 'add'])->setMiddleware(['csrf']);
+//     $routes->connect('/sellers', ['controller' => 'Sellers', 'action' => 'index']);
+//     $routes->connect('/sellers/add', ['controller' => 'Sellers', 'action' => 'add']);
 
-    // Connect API actions here.
- });
+//     // Connect API actions here.
+//  });
 
 /*
  * If you need a different set of middleware or none at all,

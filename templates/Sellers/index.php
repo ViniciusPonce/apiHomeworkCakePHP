@@ -14,8 +14,6 @@
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('nome') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('created_at') ?></th>
-                    <th><?= $this->Paginator->sort('updated_at') ?></th>
                     <th class="actions"><?= __('Ações') ?></th>
                 </tr>
             </thead>
@@ -25,8 +23,6 @@
                     <td><?= $this->Number->format($seller->id) ?></td>
                     <td><?= h($seller->name) ?></td>
                     <td><?= h($seller->email) ?></td>
-                    <td><?= h($seller->created_at) ?></td>
-                    <td><?= h($seller->updated_at) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Ver'), ['action' => 'view', $seller->id]) ?>
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $seller->id]) ?>

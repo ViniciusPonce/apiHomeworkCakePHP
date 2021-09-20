@@ -142,12 +142,4 @@ class Application extends BaseApplication
         // Load more plugins here
     }
 
-    public function routes(RouteBuilder $routes): void
-    {
-        $options = [
-            // ...
-        ];
-        $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware($options));
-        parent::routes($routes);
-    }
 }

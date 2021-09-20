@@ -16,12 +16,11 @@
         <div class="sales form content">
             <?= $this->Form->create($sale) ?>
             <fieldset>
-                <legend><?= __('Add Sale') ?></legend>
+                <legend><?= __('Nova Venda') ?></legend>
                 <?php
-                    echo $this->Form->control('seller_id', ['options' => $sellers]);
-                    echo $this->Form->control('value');
-                    echo $this->Form->control('comission');
-                    echo $this->Form->control('created_at');
+                    echo $this->Form->control('seller_id', ['options' => $sellers, 'label' => 'Vendedores']);
+                    echo $this->Form->control('value', ['label' => 'Valor']);
+                    echo $this->Form->control('comission', ['label' => 'Comissão']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

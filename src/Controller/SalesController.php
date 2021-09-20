@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Collection\Collection;
+use Cake\Controller\ComponentRegistry;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\EventManagerInterface;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Sales;
 use Seller;
 
 /**
@@ -18,15 +24,33 @@ use Seller;
 class SalesController extends AppController
 {
     /**
+     * @var \Cake\Datasource\RepositoryInterface|null
+     */
+    private $sale;
+    private $data;
+
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
     {
-        $sales = $this->paginate($this->Sales);
+        // $sales = $this->Sales->find('all');
+        // foreach ($sales as $sale) {
+        //     $car = $sale;
+        // }
+        $tableSellers = $this->getTableLocator()->get('Sellers');
 
-        $this->set(compact('sales'));
+        $query = $this->Sales->find('all', ['contain' => ['Sellers']])->all();
+
+        foreach ($query as $sale) {
+            $sales = $sale;
+        }
+        // dd($data);
+        // $sales = $this->paginate($this->data);
+
+        $this->set(compact('sales', $this->paginate()));
     }
 
     /**
@@ -52,22 +76,13 @@ class SalesController extends AppController
      */
     public function add()
     {
-        // $dados = TableRegistry::get('Sellers');
-        // dd($dados);
+
         $table = $this->getTableLocator()->get('Sellers');
-        
-        dd($table);
+
         $sellers = $table->find('all')->extract('name')->toArray();
 
-        // $teste = $table
-        //         ->find()
-        //         ->all();
-        // dd($query);
-
-        // $this->loadModel('Sellers');
-        // $sellers = $this->Sellers->find()->extract('name');
-        // dd($sellers);
         $sale = $this->Sales->newEmptyEntity();
+        // debug($sale->comission);
         if ($this->request->is('post')) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
             if ($this->Sales->save($sale)) {

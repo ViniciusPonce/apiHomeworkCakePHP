@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -7,7 +8,6 @@ namespace App\Controller;
 /**
  * Sellers Controller
  *
- * @property \App\Model\Table\SellersTable $Sellers
  * @method \App\Model\Entity\Seller[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class SellersController extends AppController
@@ -15,14 +15,14 @@ class SellersController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Http\Response
+     * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
     {
         $sellers = $this->paginate($this->Sellers);
 
-       return $this->set(compact('sellers'));
-        // return $this->response->withType("application/json")->withStringBody(json_encode($sellers));
+        $this->set(compact('sellers'));
+        //         return $this->response->withType("application/json")->withStringBody(json_encode($sellers));
 
     }
 
@@ -38,7 +38,7 @@ class SellersController extends AppController
         $seller = $this->Sellers->get($id, [
             'contain' => ['Sales'],
         ]);
-//        $this->set(compact('seller'));
+        $this->set(compact('seller'));
     }
 
     /**
