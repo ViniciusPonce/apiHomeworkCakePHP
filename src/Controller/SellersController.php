@@ -15,13 +15,15 @@ class SellersController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return \Cake\Http\Response
      */
     public function index()
     {
         $sellers = $this->paginate($this->Sellers);
 
-        $this->set(compact('sellers'));
+       return $this->set(compact('sellers'));
+        // return $this->response->withType("application/json")->withStringBody(json_encode($sellers));
+
     }
 
     /**
@@ -36,8 +38,7 @@ class SellersController extends AppController
         $seller = $this->Sellers->get($id, [
             'contain' => ['Sales'],
         ]);
-
-        $this->set(compact('seller'));
+//        $this->set(compact('seller'));
     }
 
     /**

@@ -21,6 +21,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Route\Route;
 use Cake\Routing\RouteBuilder;
@@ -74,6 +75,15 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->fallbacks();
 });
 
+$routes->scope('/api', function (RouteBuilder $routes) {
+    $routes->setExtensions(['json']);
+    $routes->applyMiddleware('csrf');
+
+    $routes->connect('/sellers', ['controller' => 'Sellers', 'action' => 'index']);
+    $routes->connect('/sellers/add', ['controller' => 'Sellers', 'action' => 'add'])->setMiddleware(['csrf']);
+
+    // Connect API actions here.
+ });
 
 /*
  * If you need a different set of middleware or none at all,
@@ -82,10 +92,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * ```
  * $routes->scope('/api', function (RouteBuilder $builder) {
  *     // No $builder->applyMiddleware() here.
- *     
+ *
  *     // Parse specified extensions from URLs
  *     // $builder->setExtensions(['json', 'xml']);
- *     
+ *
  *     // Connect API actions here.
  * });
  * ```
@@ -93,6 +103,6 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
 
 // $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');
-$routes->post('/api/sellers/create', ['controller' => 'Sellers', 'action' => 'add'], 'sellers:add');
+//$routes->post('/api/sellers/create', ['controller' => 'Sellers', 'action' => 'add'], 'sellers:add');
 // $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');
 // $routes->get('/api/sellers', ['controller' => 'Sellers', 'action' => 'view'], 'sellers:view');

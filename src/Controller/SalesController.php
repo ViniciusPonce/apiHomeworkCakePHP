@@ -1,9 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Collection\Collection;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Seller;
 
 /**
  * Sales Controller
@@ -47,10 +52,17 @@ class SalesController extends AppController
      */
     public function add()
     {
-        $table = $this->getTableLocator()->get('Sellers')->find('all');
-        $teste = $table
-                ->select(['name']);
-        dd($teste);
+        // $dados = TableRegistry::get('Sellers');
+        // dd($dados);
+        $table = $this->getTableLocator()->get('Sellers');
+        
+        dd($table);
+        $sellers = $table->find('all')->extract('name')->toArray();
+
+        // $teste = $table
+        //         ->find()
+        //         ->all();
+        // dd($query);
 
         // $this->loadModel('Sellers');
         // $sellers = $this->Sellers->find()->extract('name');

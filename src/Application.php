@@ -30,6 +30,8 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Routing\RouteBuilder;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Application setup class.
@@ -140,7 +142,7 @@ class Application extends BaseApplication
         // Load more plugins here
     }
 
-    public function routes($routes):void
+    public function routes(RouteBuilder $routes): void
     {
         $options = [
             // ...

@@ -19,8 +19,8 @@
                 <?php
                     echo $this->Form->control('name', ['label' => 'Nome']);
                     echo $this->Form->control('email', ['label' => 'Email']);
-                    echo $this->Form->control('created_at');
-                    echo $this->Form->control('updated_at');
+                    // echo $this->Form->control('created_at');
+                    // echo $this->Form->control('updated_at');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Cadastrar')) ?>

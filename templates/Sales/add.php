@@ -18,7 +18,6 @@
             <fieldset>
                 <legend><?= __('Add Sale') ?></legend>
                 <?php
-                // dd($sellers[0]['name']);
                     echo $this->Form->control('seller_id', ['options' => $sellers]);
                     echo $this->Form->control('value');
                     echo $this->Form->control('comission');
