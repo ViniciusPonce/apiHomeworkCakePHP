@@ -52,7 +52,7 @@ class SellersController extends AppController
         $seller = $this->Sellers->newEmptyEntity();
         if ($this->request->is('post')) {
             $seller = $this->Sellers->patchEntity($seller, $this->request->getData());
-            debug($seller);
+
             if ($this->Sellers->save($seller)) {
                 $this->Flash->success(__('Vendedor cadastrado com sucesso.'));
 

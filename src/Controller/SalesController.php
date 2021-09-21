@@ -80,7 +80,7 @@ class SalesController extends AppController
         if ($this->request->is('post')) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
             $sale->comission = number_format($sale->value * SalesTable::comission, 2);
-            // debug($sale);
+
             if ($this->Sales->save($sale)) {
                 $this->Flash->success(__('Venda realizada com sucesso.'));
 
