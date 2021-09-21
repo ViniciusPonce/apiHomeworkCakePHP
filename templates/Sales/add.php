@@ -18,6 +18,7 @@
             <fieldset>
                 <legend><?= __('Nova Venda') ?></legend>
                 <?php
+                // debug($sellers[0]);
                     echo $this->Form->control('seller_id', ['options' => $sellers, 'label' => 'Vendedores']);
                     echo $this->Form->control('value', ['label' => 'Valor']);
                     // echo $this->Form->control('comission', ['label' => 'Comissão']);

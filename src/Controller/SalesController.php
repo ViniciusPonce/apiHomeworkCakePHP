@@ -71,14 +71,16 @@ class SalesController extends AppController
 
         $table = $this->getTableLocator()->get('Sellers');
 
-        $sellers = $table->find('all')->extract('name')->toArray();
+        $seller = $table->find()->select(array('id', 'name'))->toArray();
+        
+        $sellers = (new Collection($seller))->combine('id', 'name')->toArray();
 
         $sale = $this->Sales->newEmptyEntity();
-        
         
         if ($this->request->is('post')) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
             $sale->comission = number_format($sale->value * SalesTable::comission, 2);
+            // debug($sale);
             if ($this->Sales->save($sale)) {
                 $this->Flash->success(__('Venda realizada com sucesso.'));
 
