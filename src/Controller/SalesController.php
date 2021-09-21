@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Table\SalesTable;
+use App\Model\Table\SellersTable;
 use Cake\Collection\Collection;
 use Cake\Controller\ComponentRegistry;
 use Cake\Datasource\ConnectionManager;
@@ -36,21 +38,11 @@ class SalesController extends AppController
      */
     public function index()
     {
-        // $sales = $this->Sales->find('all');
-        // foreach ($sales as $sale) {
-        //     $car = $sale;
-        // }
-        $tableSellers = $this->getTableLocator()->get('Sellers');
+        $sales = $this->paginate(
+            $this->Sales->find('all', ['contain' => ['Sellers']])
+        );
 
-        $query = $this->Sales->find('all', ['contain' => ['Sellers']])->all();
-
-        foreach ($query as $sale) {
-            $sales = $sale;
-        }
-        // dd($data);
-        // $sales = $this->paginate($this->data);
-
-        $this->set(compact('sales', $this->paginate()));
+        $this->set(compact('sales'));
     }
 
     /**
@@ -63,7 +55,7 @@ class SalesController extends AppController
     public function view($id = null)
     {
         $sale = $this->Sales->get($id, [
-            'contain' => [],
+            'contain' => ['Sellers'],
         ]);
 
         $this->set(compact('sale'));
@@ -82,15 +74,17 @@ class SalesController extends AppController
         $sellers = $table->find('all')->extract('name')->toArray();
 
         $sale = $this->Sales->newEmptyEntity();
-        // debug($sale->comission);
+        
+        
         if ($this->request->is('post')) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
+            $sale->comission = number_format($sale->value * SalesTable::comission, 2);
             if ($this->Sales->save($sale)) {
-                $this->Flash->success(__('The sale has been saved.'));
+                $this->Flash->success(__('Venda realizada com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sale could not be saved. Please, try again.'));
+            $this->Flash->error(__('A venda não foi realizada, Porfavor, tente novamente.'));
         }
         $this->set(compact('sale', 'sellers'));
     }
@@ -105,16 +99,17 @@ class SalesController extends AppController
     public function edit($id = null)
     {
         $sale = $this->Sales->get($id, [
-            'contain' => [],
+            'contain' => ['Sellers'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
+            $sale->comission = $sale->value * SalesTable::comission;
             if ($this->Sales->save($sale)) {
-                $this->Flash->success(__('The sale has been saved.'));
+                $this->Flash->success(__('Alteração feita com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sale could not be saved. Please, try again.'));
+            $this->Flash->error(__('A venda não foi alterada, Porfavor, tente novamente.'));
         }
         $this->set(compact('sale'));
     }
@@ -131,9 +126,9 @@ class SalesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $sale = $this->Sales->get($id);
         if ($this->Sales->delete($sale)) {
-            $this->Flash->success(__('The sale has been deleted.'));
+            $this->Flash->success(__('Venda deletada com sucesso.'));
         } else {
-            $this->Flash->error(__('The sale could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A venda não foi deletada, Porfavor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);

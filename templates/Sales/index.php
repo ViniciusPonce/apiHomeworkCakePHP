@@ -21,9 +21,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($sales as $sale) : dd($sale)?>
+                <?php foreach ($sales as $sale) : ?>
                     <tr>
-                        <td><?= $this->Number->format($sale->id) ?></td>
+                        <td><?= $this->Number->format($sale->id, ['precision' => 2]) ?></td>
                         <td><?= $sale->has('seller') ? $this->Html->link($sale->seller->name, ['controller' => 'Sellers', 'action' => 'view', $sale->seller->id]) : '' ?></td>
                         <td><?= $this->Number->format($sale->value) ?></td>
                         <td><?= $this->Number->format($sale->comission) ?></td>
@@ -41,11 +41,11 @@
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next(__('proxíma') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Página {{page}} de {{pages}}, exibindo {{current}} registro(s) de {{count}} total')) ?></p>
     </div>
 </div>

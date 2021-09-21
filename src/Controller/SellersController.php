@@ -48,16 +48,17 @@ class SellersController extends AppController
      */
     public function add()
     {
-        // dd($this->request);
+        
         $seller = $this->Sellers->newEmptyEntity();
         if ($this->request->is('post')) {
             $seller = $this->Sellers->patchEntity($seller, $this->request->getData());
+            debug($seller);
             if ($this->Sellers->save($seller)) {
                 $this->Flash->success(__('Vendedor cadastrado com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('Vendedor não cadastrado, Por favor, tente novamente'));
+            $this->Flash->error(__('Vendedor não cadastrado. Porfavor, tente novamente'));
         }
         $this->set(compact('seller'));
     }
@@ -77,11 +78,11 @@ class SellersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $seller = $this->Sellers->patchEntity($seller, $this->request->getData());
             if ($this->Sellers->save($seller)) {
-                $this->Flash->success(__('The seller has been saved.'));
+                $this->Flash->success(__('Alteração feita com sucesso.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The seller could not be saved. Please, try again.'));
+            $this->Flash->error(__('O vendedor não foi alterado. Porfavor, tente novamente.'));
         }
         $this->set(compact('seller'));
     }
@@ -100,7 +101,7 @@ class SellersController extends AppController
         if ($this->Sellers->delete($seller)) {
             $this->Flash->success(__('O vendedor foi deletado com sucesso.'));
         } else {
-            $this->Flash->error(__('O vendedor não foi deletado, Por favor, tente novamente.'));
+            $this->Flash->error(__('O vendedor não foi deletado. Porfavor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);

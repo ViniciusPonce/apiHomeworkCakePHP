@@ -7,25 +7,25 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Menu') ?></h4>
             <?= $this->Form->postLink(
-                __('Delete'),
+                __('Excluir'),
                 ['action' => 'delete', $seller->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $seller->id), 'class' => 'side-nav-item']
+                ['confirm' => __('Tem certeza que deseja excluir # {0}?', $seller->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Sellers'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List de Vendedores'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="sellers form content">
             <?= $this->Form->create($seller) ?>
             <fieldset>
-                <legend><?= __('Edit Seller') ?></legend>
+                <legend><?= __('Editar cadastro') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('created_at');
-                    echo $this->Form->control('updated_at');
+                    echo $this->Form->control('name', ['label' => 'nome']);
+                    echo $this->Form->control('email', ['label' => 'email']);
+                    // echo $this->Form->control('created_at', ['label' => 'cadastrado em']);
+                    // echo $this->Form->control('updated_at', ['label' => 'alterado em']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

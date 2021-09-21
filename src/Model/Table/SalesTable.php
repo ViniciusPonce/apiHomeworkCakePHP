@@ -35,6 +35,9 @@ class SalesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
+
+    public const comission = 8.5 / 100;
+
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -68,12 +71,10 @@ class SalesTable extends Table
 
         $validator
             ->decimal('comission')
-            ->requirePresence('comission', 'create')
             ->notEmptyString('comission');
 
         $validator
             ->dateTime('created_at')
-            ->requirePresence('created_at', 'create')
             ->notEmptyDateTime('created_at');
 
         return $validator;

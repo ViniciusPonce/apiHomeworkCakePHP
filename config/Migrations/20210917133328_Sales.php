@@ -31,10 +31,8 @@ class Sales extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
-        $table->addColumn('created_at', 'datetime', [
-            'default' => null,
-            'null' => false,
-        ]);
+        $table->addTimestamps(null, false);
+        $table->addTimestamps(false);
         $table->create();
     }
 }

@@ -8,13 +8,13 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
+            <h4 class="heading"><?= __('Menu') ?></h4>
             <?= $this->Form->postLink(
-                __('Delete'),
+                __('Excluir'),
                 ['action' => 'delete', $sale->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $sale->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Sales'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Lista de Vendas'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -23,10 +23,10 @@
             <fieldset>
                 <legend><?= __('Edit Sale') ?></legend>
                 <?php
-                    echo $this->Form->control('seller_id', ['options' => $sellers]);
-                    echo $this->Form->control('value');
-                    echo $this->Form->control('comission');
-                    echo $this->Form->control('created_at');
+                    echo $this->Form->control('name', ['label' => 'Nome', 'disabled', 'value' => $sale->seller->name]);
+                    echo $this->Form->control('value', ['label' => 'Valor']);
+                    echo $this->Form->control('comission', ['label' => 'Comissão']);
+                    echo $this->Form->control('created_at', ['label' => 'Realizada em']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
